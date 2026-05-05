@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite 🎀</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffd6e8, #ffeef5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Quicksand', sans-serif;
+    overflow: hidden;
+}
+
+/* SOBRE */
+.envelope {
+    width: 260px;
+    height: 170px;
+    background: #ffb6c1;
+    position: relative;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.flap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ff8fab;
+    clip-path: polygon(0 0, 50% 50%, 100% 0);
+    transform-origin: top;
+    transition: transform 1s;
+}
+
+/* CARTA GRANDE */
+.letter {
+    position: absolute;
+    width: 360px;
+    height: 600px;
+    background: white;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 180px) scale(0.7);
+    border-radius: 30px;
+    padding: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    opacity: 0;
+    transition: all 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+    text-align: center;
+    overflow-y: auto;
+}
+
+/* ABRIR */
+.open .flap {
+    transform: rotateX(180deg);
+}
+
+.open .letter {
+    transform: translate(-50%, -320px) scale(1);
+    opacity: 1;
+}
+
+/* TEXTO */
+h1 {
+    color: #ff4d88;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555;
+    font-size: 15px;
+}
+
+/* GALERÍA GRANDE */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.gallery img {
+    width: 100%;
+    height: 120px;
+    border-radius: 15px;
+    object-fit: cover;
+    border: 2px solid #ffb6c1;
+}
+
+/* BOTÓN */
+button {
+    margin-top: 15px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 25px;
+    background: #ff4d88;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* STICKERS */
+.sticker {
+    position: absolute;
+    width: 70px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* GLOBOS */
+.balloon {
+    position: absolute;
+    bottom: -100px;
+    width: 40px;
+    animation: rise 6s linear infinite;
+}
+
+@keyframes rise {
+    0% { transform: translateY(0); opacity:1;}
+    100% { transform: translateY(-800px); opacity:0;}
+}
+
+/* GLITTER */
+.glitter {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: sparkle 3s linear infinite;
+}
+
+@keyframes sparkle {
+    0% { transform: translateY(0); opacity:1; }
+    100% { transform: translateY(-500px); opacity:0; }
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="openSound">
+  <source src="happy-birthday-tropical-music-intro-ra-music-1-1-00-22.mp3" type="audio/mpeg">
+</audio>
+
+<div class="glitter" id="glitter"></div>
+
+<div class="envelope" onclick="openEnvelope(this)">
+    <div class="flap"></div>
+
+    <div class="letter">
+
+        <!-- STICKERS -->
+        <img class="sticker" style="top:-20px; left:-10px;" src="caritaHK.png">
+        <img class="sticker" style="top:-20px; right:-10px;" src="caritaHK.png">
+
+        <h1>Os 3 anos da Íris 🎀</h1>
+
+        <p>Venha celebrar comigo este dia mágico 💕</p>
+
+        <p><b>Data:</b> 13 de Junho</p>
+        <p><b>Hora:</b> 12h</p>
+        <p><b>Lugar:</b> Casa do papai Diego 🏡</p>
+
+        <!-- GALERÍA -->
+        <div class="gallery">
+            <img src="foto1.jpg">
+            <img src="foto2.jpg">
+            <img src="foto3.jpg">
+            <img src="foto4.jpg">
+            <img src="foto5.jpg">
+            <img src="foto6.jpg">
+        </div>
+
+        <button onclick="confirmar(event)">Confirmar presença 🎀</button>
+
+    </div>
+</div>
+
+<script>
+function openEnvelope(el) {
+    el.classList.toggle("open");
+    document.getElementById("openSound").play();
+    createBalloons();
+}
+
+/* GLOBOS */
+function createBalloons(){
+    for(let i=0;i<10;i++){
+        let b = document.createElement("img");
+        b.src = "https://cdn-icons-png.flaticon.com/512/3468/3468371.png";
+        b.className = "balloon";
+        b.style.left = Math.random()*window.innerWidth + "px";
+        b.style.animationDuration = (4 + Math.random()*3) + "s";
+        document.body.appendChild(b);
+
+        setTimeout(()=>b.remove(),7000);
+    }
+}
+
+/* WHATSAPP */
+function confirmar(e){
+    e.stopPropagation();
+    let mensaje = encodeURIComponent("Olá! Confirmo presença na festa da Íris 🎀");
+    window.open("https://wa.me/11976613486?text=" + mensaje, "_blank");
+}
+
+/* GLITTER */
+function createGlitter(){
+    for(let i=0;i<30;i++){
+        let s = document.createElement("div");
+        s.className = "sparkle";
+        s.style.left = Math.random()*window.innerWidth + "px";
+        s.style.top = Math.random()*window.innerHeight + "px";
+        s.style.animationDuration = (2 + Math.random()*2) + "s";
+        document.body.appendChild(s);
+
+        setTimeout(()=>s.remove(),3000);
+    }
+}
+
+setInterval(createGlitter, 800);
+
+</script>
+
+</body>
+</html>
