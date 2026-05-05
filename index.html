@@ -8,23 +8,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+
+@font-face {
+    font-family: 'Boldins';
+    src: url('Boldins.ttf');
+}
+
+@font-face {
+    font-family: 'Odin';
+    src: url('Odin Rounded - Bold.otf');
+}
+
 body {
     margin: 0;
     height: 100vh;
     background: linear-gradient(180deg, #ffffff 0%, #ffc1da 60%, #ff9ec5 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Odin', sans-serif;
     overflow: hidden;
+    position: relative;
 }
 
 /* SOBRE */
 .envelope {
     width: 260px;
     height: 170px;
+    left: 50%;
+    bottom: 120px;
+    transform: translateX(-50%);
     background: #ffb6c1;
-    position: relative;
+    position: absolute;
     cursor: pointer;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
@@ -33,27 +45,30 @@ body {
 
 .tap-hint {
     position: absolute;
-    bottom: -90px;
+    bottom: -130px;
     width: 100%;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     animation: bounce 1.5s infinite;
 }
 
 .tap-hint img {
-    width: 80px;
+    width: 110px;
+    margin-bottom: 5px;
 }
 
 .tap-hint p {
-    font-size: 14px;
+    font-family: 'Boldins', cursive;
+    font-size: 16px;
     color: #ff4d88;
-    margin-top: 5px;
 }
 
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+@keyframes bounce { 
+    0%,100% { transform: translateY(0); } 
+    50% { transform: translateY(-10px); } 
 }
-    
+
 .flap {
     position: absolute;
     width: 100%;
@@ -67,8 +82,9 @@ body {
 /* CARTA GRANDE */
 .letter {
     position: absolute;
-    width: 360px;
-    height: 600px;
+    width: 90vw;
+    max-width: 420px;
+    height: 80vh;
     background: white;
     top: 0;
     left: 50%;
@@ -89,12 +105,14 @@ body {
 }
 
 .open .letter {
-    transform: translate(-50%, -260px) scale(1);
+    transform: translate(-50%, -320px) scale(1);
     opacity: 1;
 }
 
 /* TEXTO */
 h1 {
+    font-family: 'Boldins', cursive;
+    font-size: 28px;
     color: #ff4d88;
     margin-bottom: 10px;
 }
@@ -128,14 +146,20 @@ button {
     border-radius: 25px;
     background: #ff4d88;
     color: white;
+    font-family: 'Odin', sans-serif;
     font-weight: bold;
     cursor: pointer;
+}
+
+button:hover {
+    background: #ff1a66;
 }
 
 /* STICKERS */
 .sticker {
     position: absolute;
     width: 70px;
+    animation: float 3s ease-in-out infinite;
     top: 10px; /* antes negativo */
 }
 
@@ -163,6 +187,26 @@ button {
     width: 100%;
     height: 100%;
     pointer-events: none;
+}
+
+/* CONFETTI */
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    background: red;
+    opacity: 0.8;
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0);
+    }
+    100% {
+        transform: translateY(600px) rotate(720deg);
+        opacity: 0;
+    }
 }
 
 .sparkle {
@@ -193,10 +237,10 @@ button {
 
 <div class="envelope" onclick="openEnvelope(this)">
     <div class="flap"></div>
-    
-<div class="tap-hint">
+
+<div class="tap-hint"> 
     <img class="sticker" src="HKbombas.png">
-    <p>Tap para abrir 🎀</p>
+    <p>Tap para abrir 🎀</p> 
 </div>
 
     <div class="letter">
@@ -211,16 +255,16 @@ button {
 
         <p><b>Data:</b> 13 de Junho</p>
         <p><b>Hora:</b> 12h</p>
-        <p><b>Lugar:</b> Casa do papai Diego 🏡</p>
+        <p><b>Lugar:</b> Rua Dom Pedro II, 255, Centro Americana 🏡</p>
 
         <!-- GALERÍA -->
         <div class="gallery">
-            <img src="foto1.jpeg">
-            <img src="foto2.jpeg">
-            <img src="foto3.jpeg">
-            <img src="foto4.jpeg">
-            <img src="foto5.jpeg">
-            <img src="foto6.jpeg">
+            <img src="foto1.jpg">
+            <img src="foto2.jpg">
+            <img src="foto3.jpg">
+            <img src="foto4.jpg">
+            <img src="foto5.jpg">
+            <img src="foto6.jpg">
         </div>
 
         <button onclick="confirmar(event)">Confirmar presença 🎀</button>
@@ -229,6 +273,36 @@ button {
 </div>
 
 <script>
+function openEnvelope(el) {
+    el.classList.toggle("open");
+    document.getElementById("openSound").play();
+    createBalloons();
+    createConfetti();
+
+    let hint = document.querySelector(".tap-hint");
+    if(hint) hint.style.display = "none";
+}
+
+function createConfetti(){
+    const colors = ["#ff4d88","#ff9ec5","#ffd6e8","#ffffff"];
+
+    for(let i=0;i<80;i++){
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = (window.innerWidth/2) + "px";
+        c.style.top = "40%";
+        c.style.background = colors[Math.floor(Math.random()*colors.length)];
+
+        let angle = Math.random()*360;
+        let distance = Math.random()*300;
+
+        c.style.transform = `translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px)`;
+
+        document.body.appendChild(c);
+
+        setTimeout(()=>c.remove(),3000);
+    }
+}
 
 /* GLOBOS */
 function createBalloons(){
@@ -242,15 +316,6 @@ function createBalloons(){
 
         setTimeout(()=>b.remove(),7000);
     }
-}    
-    
-function openEnvelope(el) {
-    el.classList.toggle("open");
-    document.getElementById("openSound").play();
-    createBalloons();
-
-    let hint = document.querySelector(".tap-hint");
-    if(hint) hint.style.display = "none";
 }
 
 /* WHATSAPP */
