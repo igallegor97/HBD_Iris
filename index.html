@@ -195,7 +195,7 @@ button {
     <div class="flap"></div>
     
 <div class="tap-hint">
-    <img src="hello-tap.png">
+    <img src="HKbombas.png">
     <p>Tap para abrir 🎀</p>
 </div>
 
@@ -229,14 +229,6 @@ button {
 </div>
 
 <script>
-function openEnvelope(el) {
-    el.classList.toggle("open");
-    document.getElementById("openSound").play();
-    createBalloons();
-
-    let hint = document.querySelector(".tap-hint");
-    if(hint) hint.style.display = "none";
-}
 
 /* GLOBOS */
 function createBalloons(){
@@ -250,6 +242,15 @@ function createBalloons(){
 
         setTimeout(()=>b.remove(),7000);
     }
+}    
+    
+function openEnvelope(el) {
+    el.classList.toggle("open");
+    document.getElementById("openSound").play();
+    createBalloons();
+
+    let hint = document.querySelector(".tap-hint");
+    if(hint) hint.style.display = "none";
 }
 
 /* WHATSAPP */
