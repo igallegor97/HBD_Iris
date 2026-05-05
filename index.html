@@ -17,6 +17,7 @@
     src: url('odin-rounded-bold.otf');
 }
 
+/* CUERPO */
 body {
     margin: 0;
     height: 100vh;
@@ -99,8 +100,13 @@ body {
     transition: all 0.8s ease;
 
     text-align: center;
-    overflow: hidden;
+    overflow-y: auto;
+    padding-bottom: 80px;
     z-index: 5; /* encima de todo */
+}
+
+.letter::-webkit-scrollbar {
+    display: none;
 }
 
 /* ABRIR */
@@ -163,13 +169,16 @@ button:hover {
 .sticker {
     position: absolute;
     width: 70px;
+    top: 15px;
     animation: float 3s ease-in-out infinite;
-    top: 10px; /* antes negativo */
 }
 
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+.left-sticker {
+    left: 10px;
+}
+
+.right-sticker {
+    right: 10px;
 }
 
 /* GLOBOS */
@@ -251,8 +260,8 @@ button:hover {
     <div class="letter">
 
         <!-- STICKERS -->
-        <img class="sticker" style="top:-20px; left:-10px;" src="caritaHK.png">
-        <img class="sticker" style="top:-20px; right:-10px;" src="caritaHK.png">
+        <img class="sticker left-sticker" src="caritaHK.png">
+        <img class="sticker right-sticker" src="caritaHK.png">
 
         <h1>Os 3 anos da Íris 🎀</h1>
 
