@@ -82,18 +82,20 @@ body {
     position: absolute;
     width: 90vw;
     max-width: 420px;
-    height: 80vh;
+    height: auto;
+    max-height: 90vh;
     background: white;
-    top: 0;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, 180px) scale(0.7);
+    transform: translate(-50%, 120px) scale(0.7);
+    transform-origin: center;
     border-radius: 30px;
     padding: 25px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.25);
     opacity: 0;
     transition: all 1.2s cubic-bezier(.68,-0.55,.27,1.55);
     text-align: center;
-    overflow-y: auto;
+    overflow: hidden;
     background: linear-gradient(180deg, #ffffff 0%, #ffc1da 60%, #ff9ec5 100%);
     z-index: 3;
 }
@@ -104,7 +106,7 @@ body {
 }
 
 .open .letter {
-    transform: translate(-50%, -320px) scale(1);
+    transform: translate(-50%, 50%) scale(1);
     opacity: 1;
 }
 
