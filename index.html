@@ -31,6 +31,29 @@ body {
     z-index: 2;
 }
 
+.tap-hint {
+    position: absolute;
+    bottom: -90px;
+    width: 100%;
+    text-align: center;
+    animation: bounce 1.5s infinite;
+}
+
+.tap-hint img {
+    width: 80px;
+}
+
+.tap-hint p {
+    font-size: 14px;
+    color: #ff4d88;
+    margin-top: 5px;
+}
+
+@keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+    
 .flap {
     position: absolute;
     width: 100%;
@@ -57,7 +80,7 @@ body {
     transition: all 1.2s cubic-bezier(.68,-0.55,.27,1.55);
     text-align: center;
     overflow-y: auto;
-    background: linear-gradient(180deg, #fff, #fff0f6)
+    background: linear-gradient(180deg, #ffffff 0%, #ffd6e8 100%);
 }
 
 /* ABRIR */
@@ -66,7 +89,7 @@ body {
 }
 
 .open .letter {
-    transform: translate(-50%, -320px) scale(1);
+    transform: translate(-50%, -260px) scale(1);
     opacity: 1;
 }
 
@@ -113,7 +136,7 @@ button {
 .sticker {
     position: absolute;
     width: 70px;
-    animation: float 3s ease-in-out infinite;
+    top: 10px; /* antes negativo */
 }
 
 @keyframes float {
@@ -170,6 +193,11 @@ button {
 
 <div class="envelope" onclick="openEnvelope(this)">
     <div class="flap"></div>
+    
+<div class="tap-hint">
+    <img src="hello-tap.png">
+    <p>Tap para abrir 🎀</p>
+</div>
 
     <div class="letter">
 
@@ -205,6 +233,9 @@ function openEnvelope(el) {
     el.classList.toggle("open");
     document.getElementById("openSound").play();
     createBalloons();
+
+    let hint = document.querySelector(".tap-hint");
+    if(hint) hint.style.display = "none";
 }
 
 /* GLOBOS */
