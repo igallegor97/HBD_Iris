@@ -244,7 +244,7 @@ button {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 10000;
+    z-index: 99999;
 }
 
 #lightbox img {
@@ -262,8 +262,8 @@ button {
 </style>
 </head>
 
-<div id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img">
+<div id="lightbox" onclick="closeLightbox(event)">
+    <img id="lightbox-img" onclick="event.stopPropagation()">
 </div>
     
 <body>
@@ -406,7 +406,8 @@ function openLightbox(src){
     lb.style.display = "flex";
 }
 
-function closeLightbox(){
+function closeLightbox(e){
+    e.stopPropagation();
     document.getElementById("lightbox").style.display = "none";
 }
     
