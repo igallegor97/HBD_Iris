@@ -234,38 +234,9 @@ button {
     }
 }
 
-#lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-}
-
-#lightbox img {
-    max-width: 90%;
-    max-height: 85%;
-    border-radius: 20px;
-    animation: zoom 0.3s ease;
-}
-
-@keyframes zoom {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-    
 </style>
 </head>
 
-<div id="lightbox" onclick="closeLightbox(event)">
-    <img id="lightbox-img" onclick="event.stopPropagation()">
-</div>
-    
 <body>
 
 <audio id="openSound">
@@ -298,12 +269,12 @@ button {
 
         <!-- GALERÍA -->
         <div class="gallery">
-            <img src="foto1.jpeg" onclick="openLightbox(this.src)">
-            <img src="foto2.jpeg" onclick="openLightbox(this.src)">
-            <img src="foto3.jpeg" onclick="openLightbox(this.src)">
-            <img src="foto4.jpeg" onclick="openLightbox(this.src)">
-            <img src="foto5.jpeg" onclick="openLightbox(this.src)">
-            <img src="foto6.jpeg" onclick="openLightbox(this.src)">
+            <img src="foto1.jpeg">
+            <img src="foto2.jpeg">
+            <img src="foto3.jpeg">
+            <img src="foto4.jpeg">
+            <img src="foto5.jpeg">
+            <img src="foto6.jpeg">
         </div>
 
         <button onclick="confirmar(event)">Confirmar presença 🎀</button>
@@ -398,19 +369,6 @@ function createGlitter(){
 
 setInterval(createGlitter, 800);
 
-function openLightbox(src){
-    const lb = document.getElementById("lightbox");
-    const img = document.getElementById("lightbox-img");
-
-    img.src = src;
-    lb.style.display = "flex";
-}
-
-function closeLightbox(e){
-    e.stopPropagation();
-    document.getElementById("lightbox").style.display = "none";
-}
-    
 </script>
 
 </body>
