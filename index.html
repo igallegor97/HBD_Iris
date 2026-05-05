@@ -27,6 +27,17 @@ body {
     position: relative;
 }
 
+.content {
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 5px;
+}
+
+/* scroll invisible */
+.content::-webkit-scrollbar {
+    display: none;
+}
+
 /* SOBRE */
 .envelope {
     width: 260px;
@@ -81,28 +92,28 @@ body {
 /* CARTA GRANDE */
 .letter {
     position: fixed;
+
     width: 90vw;
     max-width: 420px;
 
-    height: auto;
-    max-height: 90vh;
-
+    height: 85vh; /* 🔥 fijo, no auto */
+    
     top: 50%;
     left: 50%;
-
     transform: translate(-50%, -50%) scale(0.6);
-    transform-origin: center;
+
+    display: flex;
+    flex-direction: column;
 
     border-radius: 30px;
-    padding: 25px;
+    padding: 20px;
+
     box-shadow: 0 20px 50px rgba(0,0,0,0.25);
     opacity: 0;
     transition: all 0.8s ease;
 
-    text-align: center;
-    overflow-y: auto;
-    padding-bottom: 80px;
-    z-index: 5; /* encima de todo */
+    z-index: 5;
+    background: linear-gradient(180deg, #ffffff 0%, #ffc1da 60%, #ff9ec5 100%);
 }
 
 .letter::-webkit-scrollbar {
@@ -150,17 +161,13 @@ p {
 
 /* BOTÓN */
 button {
-    margin-top: 15px;
-    padding: 12px 18px;
-    border: none;
+    margin-top: 10px;
+    padding: 12px;
     border-radius: 25px;
     background: #ff4d88;
     color: white;
-    font-family: 'Odin', sans-serif;
+    border: none;
     font-weight: bold;
-    cursor: pointer;
-    position: sticky;
-    bottom: 10px;
 }
 
 /* STICKERS */
@@ -255,6 +262,7 @@ button {
     <p>Tap para abrir 🎀</p> 
 </div>
 
+<div class="content">
     <div class="letter">
 
         <!-- STICKERS -->
@@ -278,11 +286,10 @@ button {
             <img src="foto5.jpeg">
             <img src="foto6.jpeg">
         </div>
-
-        <button onclick="confirmar(event)">Confirmar presença 🎀</button>
-
     </div>
 </div>
+
+<button onclick="confirmar(event)">Confirmar presença 🎀</button>
 
 <script>
 
