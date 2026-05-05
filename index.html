@@ -30,11 +30,11 @@ body {
 .envelope {
     width: 260px;
     height: 170px;
-    left: 50%;
-    bottom: 120px;
-    transform: translateX(-50%);
     background: #ffb6c1;
     position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     cursor: pointer;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
@@ -43,7 +43,7 @@ body {
 
 .tap-hint {
     position: absolute;
-    bottom: -130px;
+    bottom: -100px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -95,6 +95,7 @@ body {
     text-align: center;
     overflow-y: auto;
     background: linear-gradient(180deg, #ffffff 0%, #ffc1da 60%, #ff9ec5 100%);
+    z-index: 3;
 }
 
 /* ABRIR */
@@ -195,6 +196,7 @@ button:hover {
     background: red;
     opacity: 0.8;
     animation: confettiFall 3s linear forwards;
+    z-index: 9999;
 }
 
 @keyframes confettiFall {
